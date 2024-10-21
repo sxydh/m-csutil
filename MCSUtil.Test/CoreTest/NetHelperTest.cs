@@ -10,7 +10,7 @@ namespace MCSUtil.Test.CoreTest
         [TestMethod]
         public void TestNew()
         {
-            var fileServer = new FileServer(8080, "");
+            var fileServer = new FileServer(50, "");
             fileServer.Start().Wait(TimeSpan.FromSeconds(1));
         }
 
@@ -24,7 +24,7 @@ namespace MCSUtil.Test.CoreTest
         [TestMethod]
         public void TestSubFileServer()
         {
-            var subFileServer = new SubFileServer(8080, "");
+            var subFileServer = new SubFileServer(60, "");
             subFileServer.Start().Wait(TimeSpan.FromSeconds(1));
         }
     }
