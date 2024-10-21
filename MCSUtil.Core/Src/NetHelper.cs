@@ -218,21 +218,21 @@ namespace MCSUtil.Core
         }
     }
 
-    public class IpHelper
+    public class IPHelper
     {
-        public static List<string> GetAliveIpList()
+        public static List<string> GetAliveIPList()
         {
-            return GetAliveIpList(GetSubnetIpList());
+            return GetAliveIPList(GetSubnetIPList());
         }
 
-        public static List<string> GetAliveIpList(List<string> ipList)
+        public static List<string> GetAliveIPList(List<string> ipList)
         {
             if (ipList == null || ipList.Count == 0)
             {
                 return new List<string>();
             }
 
-            var aliveIpList = new ConcurrentBag<string>();
+            var aliveIPList = new ConcurrentBag<string>();
             using (var countdownEvent = new CountdownEvent(ipList.Count))
             {
                 foreach (var ip in ipList)
@@ -242,7 +242,7 @@ namespace MCSUtil.Core
                     {
                         if (e.Reply.Status == IPStatus.Success)
                         {
-                            aliveIpList.Add((string)e.UserState);
+                            aliveIPList.Add((string)e.UserState);
                         }
 
                         ping.Dispose();
@@ -255,10 +255,10 @@ namespace MCSUtil.Core
                 countdownEvent.Wait();
             }
 
-            return aliveIpList.ToList();
+            return aliveIPList.ToList();
         }
 
-        public static List<string> GetSubnetIpList()
+        public static List<string> GetSubnetIPList()
         {
             /* 获取子网掩码和网关 */
             string subnetMask = null;
@@ -327,13 +327,13 @@ namespace MCSUtil.Core
                 subnetArray[i] = (int.Parse(subnetMaskArray[i]) & int.Parse(gatewayArray[i])).ToString();
             }
 
-            var subnetIpList = new List<string>();
+            var subnetIPList = new List<string>();
             for (var i = 1; i < 255; i++)
             {
-                subnetIpList.Add(subnetArray[0] + "." + subnetArray[1] + "." + subnetArray[2] + "." + i);
+                subnetIPList.Add(subnetArray[0] + "." + subnetArray[1] + "." + subnetArray[2] + "." + i);
             }
 
-            return subnetIpList;
+            return subnetIPList;
         }
     }
 }
