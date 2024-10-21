@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -80,13 +86,16 @@ namespace MCSUtil.Core
                         var subDirName = Path.GetFileName(subDir);
                         writer.WriteLine($"<li><a href=\"{HttpUtility.UrlEncode(subDirName)}/\">{subDirName}/</a></li>", Encoding.UTF8);
                     }
+
                     foreach (var subFile in subFiles)
                     {
                         var subFileName = Path.GetFileName(subFile);
                         writer.WriteLine($"<li><a href=\"{HttpUtility.UrlEncode(subFileName)}\">{subFileName}</a></li>", Encoding.UTF8);
                     }
+
                     writer.WriteLine("</ul></body></html>");
                 }
+
                 context.Response.ContentType = "text/html; charset=UTF-8";
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
             }
@@ -109,6 +118,7 @@ namespace MCSUtil.Core
                 {
                     fileStream.CopyTo(context.Response.OutputStream);
                 }
+
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
             }
             catch (Exception)
@@ -205,6 +215,125 @@ namespace MCSUtil.Core
                 case ".7z": return "application/x-7z-compressed";
                 default: return "application/octet-stream";
             }
+        }
+    }
+
+    public class IpHelper
+    {
+        public static List<string> GetAliveIpList()
+        {
+            return GetAliveIpList(GetSubnetIpList());
+        }
+
+        public static List<string> GetAliveIpList(List<string> ipList)
+        {
+            if (ipList == null || ipList.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            var aliveIpList = new ConcurrentBag<string>();
+            using (var countdownEvent = new CountdownEvent(ipList.Count))
+            {
+                foreach (var ip in ipList)
+                {
+                    var ping = new Ping();
+                    ping.PingCompleted += (sender, e) =>
+                    {
+                        if (e.Reply.Status == IPStatus.Success)
+                        {
+                            aliveIpList.Add((string)e.UserState);
+                        }
+
+                        ping.Dispose();
+                        // ReSharper disable once AccessToDisposedClosure
+                        countdownEvent.Signal();
+                    };
+                    ping.SendAsync(ip, 5000, ip);
+                }
+
+                countdownEvent.Wait();
+            }
+
+            return aliveIpList.ToList();
+        }
+
+        public static List<string> GetSubnetIpList()
+        {
+            /* 获取子网掩码和网关 */
+            string subnetMask = null;
+            string gateway = null;
+            foreach (var networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (subnetMask != null && gateway != null)
+                {
+                    break;
+                }
+
+                if (networkInterface.Name != "WLAN")
+                {
+                    continue;
+                }
+
+                if (networkInterface.OperationalStatus != OperationalStatus.Up)
+                {
+                    continue;
+                }
+
+                // 获取子网掩码
+                if (subnetMask == null)
+                {
+                    var unicastIPAddressInformationCollection = networkInterface.GetIPProperties().UnicastAddresses;
+                    foreach (var unicastIPAddressInformation in unicastIPAddressInformationCollection)
+                    {
+                        if (unicastIPAddressInformation.Address.AddressFamily != AddressFamily.InterNetwork)
+                        {
+                            continue;
+                        }
+
+                        subnetMask = unicastIPAddressInformation.IPv4Mask.ToString();
+                        break;
+                    }
+                }
+
+                // 获取网关
+                if (gateway == null)
+                {
+                    var gatewayIPAddressInformationCollection = networkInterface.GetIPProperties().GatewayAddresses;
+                    foreach (var gatewayIPAddressInformation in gatewayIPAddressInformationCollection)
+                    {
+                        if (gatewayIPAddressInformation.Address.AddressFamily != AddressFamily.InterNetwork)
+                        {
+                            continue;
+                        }
+
+                        gateway = gatewayIPAddressInformation.Address.ToString();
+                        break;
+                    }
+                }
+            }
+
+            if (subnetMask == null || gateway == null)
+            {
+                return new List<string>();
+            }
+
+            /* 计算子网列表 */
+            var subnetMaskArray = subnetMask.Split('.');
+            var gatewayArray = gateway.Split('.');
+            var subnetArray = new string[4];
+            for (var i = 0; i < 4; i++)
+            {
+                subnetArray[i] = (int.Parse(subnetMaskArray[i]) & int.Parse(gatewayArray[i])).ToString();
+            }
+
+            var subnetIpList = new List<string>();
+            for (var i = 1; i < 255; i++)
+            {
+                subnetIpList.Add(subnetArray[0] + "." + subnetArray[1] + "." + subnetArray[2] + "." + i);
+            }
+
+            return subnetIpList;
         }
     }
 }
