@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>sxydh</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
-    <!-- <icon>icon.png</icon> -->
-    <projectUrl>https://github.com/sxydh/m-csutil</projectUrl>
-    <description>A collection of utility functions and classes for C# development, designed to simplify common tasks and improve code efficiency.</description>
-    <releaseNotes>Initial release with basic utility functions including string manipulation, file handling, and data validation.</releaseNotes>
-    <copyright>Copyright © 2024 sxydh. All rights reserved.</copyright>
-    <tags>utility, csharp, tools, helpers</tags>
-  </metadata>
+<package>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>sxydh</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <license type="expression">MIT</license>
+        <projectUrl>https://github.com/sxydh/m-csutil</projectUrl>
+        <description>A collection of utility functions and classes for C# development, designed to simplify common tasks and improve code efficiency.</description>
+        <releaseNotes>Initial release with basic utility functions including string manipulation, file handling, and data validation.</releaseNotes>
+        <copyright>Copyright © 2024 sxydh. All rights reserved.</copyright>
+        <tags>utility, csharp, tools, helpers</tags>
+        <readme>doc\README.md</readme>
+    </metadata>
+    <files>
+        <file src="..\README.md" target="doc\"/>
+    </files>
 </package>
