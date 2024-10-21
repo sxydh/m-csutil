@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MCSUtil.Core;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MCSUtil.Test.CoreTest
 {
@@ -33,6 +33,17 @@ namespace MCSUtil.Test.CoreTest
     {
         internal SubFileServer(int port, string root) : base(port, root)
         {
+        }
+    }
+
+    [TestClass]
+    public class IPHelperTest
+    {
+        [TestMethod]
+        public void TestGetAliveIPList()
+        {
+            var aliveIPList = IPHelper.GetAliveIPList();
+            Assert.IsNotNull(aliveIPList);
         }
     }
 }
