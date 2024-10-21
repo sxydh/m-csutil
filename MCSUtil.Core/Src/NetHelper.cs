@@ -218,7 +218,7 @@ namespace MCSUtil.Core
         }
     }
 
-    public class IPHelper
+    public static class IPHelper
     {
         public static List<string> GetAliveIPList()
         {
