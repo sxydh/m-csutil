@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 > nul
 setlocal
 
 cd ..
@@ -19,3 +20,5 @@ set /p api_key="请输入密钥："
 nuget push "%latest_nupkg%" "%api_key%" -Source https://api.nuget.org/v3/index.json
 
 endlocal
+
+pause
