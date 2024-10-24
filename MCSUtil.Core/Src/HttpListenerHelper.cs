@@ -11,12 +11,16 @@ namespace MCSUtil.Core
     {
         private readonly HttpListener _listener;
         private readonly string _rootDirectory;
+        private readonly string _username;
+        private readonly string _password;
 
-        public FileServer(int port, string root)
+        public FileServer(int port, string root, string username = "", string password = "")
         {
             _listener = new HttpListener();
             _listener.Prefixes.Add($"http://localhost:{port}/");
             _rootDirectory = Path.Combine(Directory.GetCurrentDirectory(), root);
+            _username = username;
+            _password = password;
         }
 
         public Task Start()
@@ -39,6 +43,12 @@ namespace MCSUtil.Core
 
         protected virtual void ProcessRequest(HttpListenerContext context)
         {
+            if (!AuthenticateUser(context))
+            {
+                Process401(context);
+                return;
+            }
+
             var path = context.Request.Url.AbsolutePath.TrimStart('/');
             path = HttpUtility.UrlDecode(path);
             var targetPath = Path.Combine(_rootDirectory, path);
@@ -56,6 +66,39 @@ namespace MCSUtil.Core
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 context.Response.Close();
             }
+        }
+
+        private bool AuthenticateUser(HttpListenerContext context)
+        {
+            var authHeader = context.Request.Headers["Authorization"];
+            if (authHeader == null)
+            {
+                return false;
+            }
+
+            const string prefix = "Basic ";
+            if (!authHeader.StartsWith(prefix))
+            {
+                return false;
+            }
+
+            var encodedCredentials = authHeader.Substring(prefix.Length).Trim();
+            var credentials = Encoding.UTF8.GetString(Convert.FromBase64String(encodedCredentials));
+            var parts = credentials.Split(':');
+
+            return parts.Length == 2 && ValidateUser(parts[0], parts[1]);
+        }
+
+        private bool ValidateUser(string username, string password)
+        {
+            return username == _username && password == _password;
+        }
+
+        protected virtual void Process401(HttpListenerContext context)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Response.AddHeader("WWW-Authenticate", "Basic realm=\"MyRealm\"");
+            context.Response.Close();
         }
 
         protected virtual void ProcessDirectory(HttpListenerContext context, string directoryPath)
