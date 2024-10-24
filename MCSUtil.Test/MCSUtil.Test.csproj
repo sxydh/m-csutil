@@ -55,7 +55,7 @@
     <Compile Include="CoreTest\DateTimeHelperTest.cs" />
     <Compile Include="CoreTest\GetForegroundWindowHelperTest.cs" />
     <Compile Include="CoreTest\IPHelperTest.cs" />
-    <Compile Include="CoreTest\HttpListenerHelper.cs" />
+    <Compile Include="CoreTest\HttpListenerHelperTest.cs" />
     <Compile Include="CoreTest\ProcessHelperTest.cs" />
     <Compile Include="CoreTest\SetThreadExecutionStateHelperTest.cs" />
     <Compile Include="CoreTest\SetWindowPosHelperTest.cs" />
