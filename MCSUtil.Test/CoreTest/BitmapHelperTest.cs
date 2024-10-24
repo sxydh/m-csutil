@@ -24,5 +24,21 @@ namespace MCSUtil.Test.CoreTest
             File.Delete(sourceFileName);
             File.Delete(destFileName);
         }
+
+        [TestMethod]
+        public void TestCompressPng()
+        {
+            var source = Directory.GetCurrentDirectory();
+            var sourceFileName = Path.Combine(source, $"{typeof(BitmapHelperTest).FullName}.png");
+            var destFileName = Path.Combine(source, $"{typeof(BitmapHelperTest).FullName}.{DateTimeHelper.Timestamp()}.png");
+            var jpeg = new Bitmap(100, 100);
+            jpeg.Save(sourceFileName, ImageFormat.Png);
+
+            var success = BitmapHelper.CompressPng(sourceFileName, destFileName, 50);
+            Assert.IsTrue(success);
+
+            File.Delete(sourceFileName);
+            File.Delete(destFileName);
+        }
     }
 }
