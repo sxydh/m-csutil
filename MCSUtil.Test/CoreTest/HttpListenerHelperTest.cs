@@ -17,14 +17,14 @@ namespace MCSUtil.Test.CoreTest
         [TestMethod]
         public void TestNew1()
         {
-            var fileServer = new FileServer(51);
+            var fileServer = new FileServer(100);
             fileServer.Start().Wait(TimeSpan.FromSeconds(1));
         }
 
         [TestMethod]
         public void TestNew5()
         {
-            var fileServer = new FileServer("0.0.0.0", 55, "", "admin", "123");
+            var fileServer = new FileServer("+", 500, "ROOT", "admin", "123");
             fileServer.Start().Wait(TimeSpan.FromSeconds(1));
         }
 
