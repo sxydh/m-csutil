@@ -17,7 +17,7 @@ namespace MCSUtil.Core
                 };
                 return Process.Start(processStartInfo)?.Id;
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 return null;
             }
