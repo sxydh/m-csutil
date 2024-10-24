@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CoreTest\IPHelperTest.cs" />
     <Compile Include="CoreTest\HttpListenerHelper.cs" />
+    <Compile Include="CoreTest\ProcessHelperTest.cs" />
     <Compile Include="CoreTest\TcpListenerHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
