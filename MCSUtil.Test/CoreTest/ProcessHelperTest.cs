@@ -1,4 +1,6 @@
-﻿using MCSUtil.Core;
+﻿using System;
+using System.Diagnostics;
+using MCSUtil.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MCSUtil.Test.CoreTest
@@ -16,8 +18,9 @@ namespace MCSUtil.Test.CoreTest
         [TestMethod]
         public void TestStop()
         {
-            var stop = ProcessHelper.Stop(-100);
-            Assert.IsTrue(!stop);
+            var processId = Process.Start("cmd")?.Id;
+            var stopped = ProcessHelper.Stop(processId ?? throw new ArgumentException());
+            Assert.IsTrue(stopped);
         }
     }
 }
