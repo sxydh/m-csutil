@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\IPHelper.cs" />
     <Compile Include="Src\HttpListenerHelper.cs" />
+    <Compile Include="Src\ProcessHelper.cs" />
     <Compile Include="Src\TcpListenerHelper.cs" />
     <Compile Include="Src\WebSocketHelper.cs" />
   </ItemGroup>
