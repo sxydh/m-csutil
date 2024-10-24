@@ -25,7 +25,7 @@ namespace MCSUtil.Core
         public FileServer(string host, int port, string root, string username = "", string password = "")
         {
             _listener = new HttpListener();
-            _listener.Prefixes.Add($"http://localhost:{port}/");
+            _listener.Prefixes.Add($"http://{host}:{port}/");
             _rootDirectory = Path.Combine(Directory.GetCurrentDirectory(), root);
             _username = username;
             _password = password;
