@@ -12,11 +12,11 @@ namespace MCSUtil.Core
             {
                 listener = new TcpListener(IPAddress.Any, port);
                 listener.Start();
-                return true;
+                return false;
             }
             catch (SocketException)
             {
-                return false;
+                return true;
             }
             finally
             {
