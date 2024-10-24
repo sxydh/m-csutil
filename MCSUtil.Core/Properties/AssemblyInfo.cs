@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      生成号：表示构建的次数。
 //      修订号：表示小错误修复。
 //
-[assembly: AssemblyVersion("1.6.0.0")]
-[assembly: AssemblyFileVersion("1.6.0.0")]
+[assembly: AssemblyVersion("1.7.0.0")]
+[assembly: AssemblyFileVersion("1.7.0.0")]
