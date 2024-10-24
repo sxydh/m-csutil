@@ -47,6 +47,7 @@
     <Compile Include="Src\HttpListenerHelper.cs" />
     <Compile Include="Src\ProcessHelper.cs" />
     <Compile Include="Src\TcpListenerHelper.cs" />
+    <Compile Include="Src\TopWindowHelper.cs" />
     <Compile Include="Src\WebSocketHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
