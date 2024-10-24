@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace MCSUtil.Core
 {
-    public class TcpListenerHelper
+    public static class TcpListenerHelper
     {
         public static bool IsPortInUse(int port)
         {
