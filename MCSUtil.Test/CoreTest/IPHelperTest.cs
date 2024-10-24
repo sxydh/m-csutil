@@ -13,7 +13,7 @@ namespace MCSUtil.Test.CoreTest
             var aliveIPList = IPHelper.GetAliveIPList();
             Assert.IsNotNull(aliveIPList);
 
-            aliveIPList = IPHelper.GetAliveIPList(new List<string> { "1.1.1.1" });
+            aliveIPList = IPHelper.GetAliveIPList(new List<string> { "8.8.8.8" });
             Assert.IsTrue(aliveIPList.Count == 1);
         }
 
