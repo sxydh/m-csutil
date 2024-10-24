@@ -1,7 +1,26 @@
-﻿namespace MCSUtil.Core
+﻿using System;
+using System.Diagnostics;
+
+namespace MCSUtil.Core
 {
-    public class ProcessHelper
+    public static class ProcessHelper
     {
-        
+        public static int? Start(string fileName, string arguments = "")
+        {
+            try
+            {
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = fileName,
+                    Arguments = arguments,
+                    UseShellExecute = true
+                };
+                return Process.Start(processStartInfo)?.Id;
+            }
+            catch (Exception _)
+            {
+                return null;
+            }
+        }
     }
 }
