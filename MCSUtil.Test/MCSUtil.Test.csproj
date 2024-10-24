@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreTest\IPHelperTest.cs" />
-    <Compile Include="CoreTest\NetHelperTest.cs" />
+    <Compile Include="CoreTest\HttpListenerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
