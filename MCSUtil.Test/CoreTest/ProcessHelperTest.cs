@@ -12,5 +12,12 @@ namespace MCSUtil.Test.CoreTest
             var processId = ProcessHelper.Start("cmd");
             Assert.IsNotNull(processId);
         }
+
+        [TestMethod]
+        public void TestStop()
+        {
+            var stop = ProcessHelper.Stop(-100);
+            Assert.IsTrue(!stop);
+        }
     }
 }

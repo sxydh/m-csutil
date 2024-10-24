@@ -22,5 +22,18 @@ namespace MCSUtil.Core
                 return null;
             }
         }
+
+        public static bool Stop(int processId)
+        {
+            try
+            {
+                Process.GetProcessById(processId).Kill();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
