@@ -27,6 +27,7 @@ namespace MCSUtil.Test.CoreTest
         {
             var processId = ProcessHelper.Start("cmd");
             Assert.IsNotNull(processId);
+            Process.GetProcessById((int)processId).Kill();
         }
 
         [TestMethod]
