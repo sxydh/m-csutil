@@ -10,7 +10,21 @@ namespace MCSUtil.Test.CoreTest
         [TestMethod]
         public void TestNew()
         {
-            var fileServer = new FileServer(50, "");
+            var fileServer = new FileServer();
+            fileServer.Start().Wait(TimeSpan.FromSeconds(1));
+        }
+
+        [TestMethod]
+        public void TestNew1()
+        {
+            var fileServer = new FileServer(50);
+            fileServer.Start().Wait(TimeSpan.FromSeconds(1));
+        }
+
+        [TestMethod]
+        public void TestNew5()
+        {
+            var fileServer = new FileServer("0.0.0.0", 50, "", "admin", "123");
             fileServer.Start().Wait(TimeSpan.FromSeconds(1));
         }
 

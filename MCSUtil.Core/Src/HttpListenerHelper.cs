@@ -14,7 +14,15 @@ namespace MCSUtil.Core
         private readonly string _username;
         private readonly string _password;
 
-        public FileServer(int port, string root, string username = "", string password = "")
+        public FileServer() : this(50)
+        {
+        }
+
+        public FileServer(int port, string root = "ROOT") : this("localhost", port, root)
+        {
+        }
+
+        public FileServer(string host, int port, string root, string username = "", string password = "")
         {
             _listener = new HttpListener();
             _listener.Prefixes.Add($"http://localhost:{port}/");
