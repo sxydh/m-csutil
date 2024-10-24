@@ -24,10 +24,10 @@ using System.Runtime.InteropServices;
 
 // 程序集的版本信息由下列四个值组成: 
 //
-//      主版本
-//      次版本
-//      生成号
-//      修订号
+//      主版本：表示可能向后不兼容的重大版本更新。
+//      次版本：表示向后兼容的功能添加或改进。
+//      生成号：表示构建的次数。
+//      修订号：表示小错误修复。
 //
-[assembly: AssemblyVersion("1.1.4.0")]
-[assembly: AssemblyFileVersion("1.1.4.0")]
+[assembly: AssemblyVersion("1.4.0.0")]
+[assembly: AssemblyFileVersion("1.4.0.0")]
