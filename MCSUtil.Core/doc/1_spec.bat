@@ -1,1 +1,2 @@
-nuget spec ../MCSUtil.Core.csproj
+cd ..
+nuget spec MCSUtil.Core.csproj

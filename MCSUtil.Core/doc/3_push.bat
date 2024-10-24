@@ -1,6 +1,8 @@
 @echo off
 setlocal
 
+cd ..
+
 for /f "delims=" %%i in ('dir /b /o-d *.nupkg') do (
     set "latest_nupkg=%%i"
     goto :found
