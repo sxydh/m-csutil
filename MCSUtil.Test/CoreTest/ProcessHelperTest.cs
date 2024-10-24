@@ -9,6 +9,20 @@ namespace MCSUtil.Test.CoreTest
     public class ProcessHelperTest
     {
         [TestMethod]
+        public void TestGet()
+        {
+            var process = ProcessHelper.Get("explorer");
+            Assert.IsNotNull(process);
+        }
+
+        [TestMethod]
+        public void TestGetProcessId()
+        {
+            var processId = ProcessHelper.GetProcessId("explorer");
+            Assert.IsNotNull(processId);
+        }
+
+        [TestMethod]
         public void TestStart()
         {
             var processId = ProcessHelper.Start("cmd");
@@ -16,11 +30,17 @@ namespace MCSUtil.Test.CoreTest
         }
 
         [TestMethod]
-        public void TestStop()
+        public void TestKill()
         {
-            var processId = Process.Start("cmd")?.Id;
-            var stopped = ProcessHelper.Stop(processId ?? throw new ArgumentException());
-            Assert.IsTrue(stopped);
+            const string processName = "notepad";
+
+            var processId = Process.Start(processName)?.Id;
+            var isKilled = ProcessHelper.Kill(processId ?? throw new ArgumentException());
+            Assert.IsTrue(isKilled);
+
+            Process.Start(processName);
+            isKilled = ProcessHelper.Kill(processName);
+            Assert.IsTrue(isKilled);
         }
     }
 }
