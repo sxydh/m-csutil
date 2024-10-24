@@ -48,6 +48,7 @@
     <Compile Include="Src\IPHelper.cs" />
     <Compile Include="Src\HttpListenerHelper.cs" />
     <Compile Include="Src\ProcessHelper.cs" />
+    <Compile Include="Src\SetThreadExecutionStateHelper.cs" />
     <Compile Include="Src\SetWindowsHookExHelper.cs" />
     <Compile Include="Src\TcpListenerHelper.cs" />
     <Compile Include="Src\SetWindowPosHelper.cs" />
