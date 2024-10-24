@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreTest\GetForegroundWindowHelperTest.cs" />
     <Compile Include="CoreTest\IPHelperTest.cs" />
     <Compile Include="CoreTest\HttpListenerHelper.cs" />
     <Compile Include="CoreTest\ProcessHelperTest.cs" />
