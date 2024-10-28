@@ -194,8 +194,8 @@ namespace MCSUtil.Core
                 case ".bz2": return "application/x-bzip2";
                 case ".cda": return "application/x-cdf";
                 case ".csh": return "application/x-csh";
-                case ".css": return "text/css";
-                case ".csv": return "text/csv";
+                case ".css": return "text/css; charset=utf-8";
+                case ".csv": return "text/csv; charset=utf-8";
                 case ".doc": return "application/msword";
                 case ".docx": return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
                 case ".eot": return "application/vnd.ms-fontobject";
@@ -209,8 +209,8 @@ namespace MCSUtil.Core
                 case ".jar": return "application/java-archive";
                 case ".jpeg": return "image/jpeg";
                 case ".jpg": return "image/jpeg";
-                case ".js": return "text/javascript";
-                case ".json": return "application/json";
+                case ".js": return "text/javascript; charset=utf-8";
+                case ".json": return "application/json; charset=utf-8";
                 case ".jsonld": return "application/ld+json";
                 case ".mid": return "audio/midi";
                 case ".midi": return "audio/midi";
@@ -241,7 +241,7 @@ namespace MCSUtil.Core
                 case ".tiff": return "image/tiff";
                 case ".ts": return "video/mp2t";
                 case ".ttf": return "font/ttf";
-                case ".txt": return "text/plain";
+                case ".txt": return "text/plain; charset=utf-8";
                 case ".vsd": return "application/vnd.visio";
                 case ".wav": return "audio/wav";
                 case ".weba": return "audio/webm";
@@ -252,7 +252,7 @@ namespace MCSUtil.Core
                 case ".xhtml": return "application/xhtml+xml";
                 case ".xls": return "application/vnd.ms-excel";
                 case ".xlsx": return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                case ".xml": return "application/xml";
+                case ".xml": return "application/xml; charset=utf-8";
                 case ".xul": return "application/vnd.mozilla.xul+xml";
                 case ".zip": return "application/zip";
                 case ".3gp": return "video/3gpp";
