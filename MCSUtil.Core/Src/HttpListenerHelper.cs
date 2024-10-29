@@ -64,10 +64,13 @@ namespace MCSUtil.Core
             if (Directory.Exists(targetPath))
             {
                 ProcessDirectory(context, targetPath);
+                return;
             }
-            else if (File.Exists(targetPath))
+            
+            if (File.Exists(targetPath))
             {
                 ProcessFile(context, targetPath);
+                return;
             }
 
             Process404(context);
