@@ -69,15 +69,17 @@ namespace MCSUtil.Core
             {
                 ProcessFile(context, targetPath);
             }
-            else
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                context.Response.Close();
-            }
+
+            Process404(context);
         }
 
         private bool AuthenticateUser(HttpListenerContext context)
         {
+            if (string.IsNullOrEmpty(_username) && string.IsNullOrEmpty(_password))
+            {
+                return true;
+            }
+
             var authHeader = context.Request.Headers["Authorization"];
             if (authHeader == null)
             {
@@ -106,6 +108,22 @@ namespace MCSUtil.Core
         {
             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             context.Response.AddHeader("WWW-Authenticate", "Basic realm=\"MyRealm\"");
+            using (var writer = new StreamWriter(context.Response.OutputStream))
+            {
+                writer.WriteLine(HttpStatusCode.Unauthorized);
+            }
+
+            context.Response.Close();
+        }
+
+        protected virtual void Process404(HttpListenerContext context)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            using (var writer = new StreamWriter(context.Response.OutputStream))
+            {
+                writer.WriteLine(HttpStatusCode.NotFound);
+            }
+
             context.Response.Close();
         }
 
