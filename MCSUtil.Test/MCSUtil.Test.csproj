@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreTest\BitmapHelperTest.cs" />
-    <Compile Include="CoreTest\DateTimeHelper.cs" />
     <Compile Include="CoreTest\DateTimeHelperTest.cs" />
     <Compile Include="CoreTest\GetForegroundWindowHelperTest.cs" />
     <Compile Include="CoreTest\IPHelperTest.cs" />
